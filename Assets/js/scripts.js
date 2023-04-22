@@ -19,7 +19,7 @@
     })
       .then((response) => response.json())
       .then(function (json) {
-        imprimirUno(json);
+        digicard(json[0].name,json[0].level,json[0].img)
       })
       .catch((error) => console.log(error));
   }
@@ -37,14 +37,16 @@
 
 
  // funcion imprimir una card con un digimon
-function imprimirUno(elemento){
+function imprimirUno(nombre,level,img){
+
+;  
     let modal = document.getElementById('constenidoModal');
  //creamos elementos a imprimir
     let cardImprimir = `
-        <div class="card mx-auto" style="max-width: 30rem;">
-        <h2 class="card-title text-center my-3">${elemento[0].name}</h2>
-            <img src="${elemento[0].img}" class="card-img-top" alt="${elemento[0].name}">
-            <p class="card-text my-3 text-center"><strong>Level:</strong>${elemento[0].level}</p>
+        <div class="card mx-auto" style="max-width: 20rem;">
+        <h2 class="card-title text-center my-3">${nombre}</h2>
+            <img src="${img}" class="card-img-top" alt="${nombre}">
+            <p class="card-text my-3 text-center"><strong>Level:</strong>${level}</p>
         </div>`;
 
         modal.innerHTML = cardImprimir;
@@ -67,7 +69,7 @@ function ImprimirTodo(elemento){
  
   for(let ele of elemento){
     let cardImprimir = `
-    <div class="digiCard" onclick="digicard('${ele.name}','${ele.level}','${ele.img}')">
+    <div class="digiCard" id="${ele.name}" onclick="imprimirUno('${ele.name}','${ele.level}','${ele.img}')">
         <img src="${ele.img}" class="card-img-top img-fluid" alt="${ele.name}">
         </div>
     </div>`;
@@ -82,7 +84,7 @@ function digicard(name,level,img){
 
 
  let card =`
- <div class="card mx-auto p-2" id="${name}">
+ <div class="card mx-auto p-2">
       <h2 class="text-center">${name}</h2>
      <img src="${img}" class="card-img-top" alt="${name}">
      <div class="card-body">
@@ -90,8 +92,23 @@ function digicard(name,level,img){
          <p class="card-text text-center"><strong>Level:</strong>${level}</p>
      </div>
  </div>`;
- 
+
+
+ document.querySelector(`#${name}`).scrollIntoView({
+  behavior: 'smooth',
+  block: 'center',
+  inline: 'start'
+ });
+
  document.getElementById('digipizarra').innerHTML = card;
+ document.querySelector(`#${name}`).style.borderColor = '#e0e01b';
+
+ setTimeout(function (){
+  document.querySelector(`#${name}`).style.borderColor = 'grey';
+ },1000)
+ 
+
+ 
 }
 
 
