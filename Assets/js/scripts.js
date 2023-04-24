@@ -105,7 +105,7 @@ function digicard(name,level,img){
 
  setTimeout(function (){
   document.querySelector(`#${name}`).style.borderColor = 'grey';
- },1000)
+ },3000)
  
 
  
